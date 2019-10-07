@@ -2,7 +2,11 @@ class SessionsController < ApplicationController
 
   # Log in menu
   def new
-    @users = User.all
+    if current_user
+      redirect_to '/transactions'
+    else
+      @users = User.all
+    end
   end
 
   # Log in
@@ -12,9 +16,8 @@ class SessionsController < ApplicationController
       session.clear
       session[:user_id] = user.id
       flash.notice = 'You have successfully logged in'
-      redirect_to '/'
+      redirect_to '/transactions'
     else
-      binding.pry
       flash.alert = 'Username or password was incorrect'
       redirect_to '/'
     end
