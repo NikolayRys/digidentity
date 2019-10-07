@@ -1,0 +1,6 @@
+<h2>TRANSACTIONS</h2>
+<h3>My balance: $<%= @user.balance.to_f / 100 %></h3>
+
+<%= form_tag("/sessions/#{@user.id}", method: :delete) do %>
+  <input type="submit" value="Log out">
+<% end %>
