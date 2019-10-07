@@ -11,14 +11,10 @@ class Transfer < ApplicationRecord
   end
 
   def adjust_balance
-    # If ActiveRecord::RecordInvalid is raised, it will prevent transfer from being saved
+    # ActiveRecord::RecordInvalid is raised, it will prevent transfer from being saved
     ActiveRecord::Base.transaction do
-      sender&.update(balance: sender.balance - amount)
-      receiver&.update(balance: receiver.balance + amount)
+      sender&.update!(balance: sender.balance - amount)
+      receiver&.update!(balance: receiver.balance + amount)
     end
-  end
-
-  def admin_transfer?
-    sender.blank? || receiver.blank?
   end
 end
