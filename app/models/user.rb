@@ -16,7 +16,7 @@ class User < ApplicationRecord
     debit_lines = debits.map do |transfer|
       { date: transfer.created_at, counterparty: transfer.receiver&.email, amount: -transfer.amount, note: transfer.note }
     end
-    credit_lines.concat(debit_lines).sort_by { |line| line[:date]  }
+    credit_lines.concat(debit_lines).sort_by { |line| line[:date]  }.reverse
   end
 
   def can_transfer?(amount)

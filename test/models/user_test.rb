@@ -65,8 +65,8 @@ class UserTest < ActiveSupport::TestCase
     first_user.send_money_to(second_user, 50, 'first payment')
     second_user.send_money_to(first_user, 20, 'second payment')
 
-    assert_equal first_user.history.map{|line| line[:amount]}, [-50, 20]
-    assert_equal second_user.history.map{|line| line[:amount]}, [50, -20]
+    assert_equal first_user.history.map{|line| line[:amount]}, [20, -50]
+    assert_equal second_user.history.map{|line| line[:amount]}, [-20, 50]
   end
 
 end
