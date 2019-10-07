@@ -12,23 +12,23 @@ class User < ApplicationRecord
     credits.or(debits).order(:created_at)
   end
 
-  def can_afford?(amount)
-    amount <= balance
+  def can_transfer?(amount)
+    amount >= 0 && amount <= balance
   end
 
-  # Safety can be checked preliminary by #can_afford? method
+  # Safety can be checked preliminary by #can_transfer? method
   def send_money_to(receiver, amount, note=nil)
-    report_result(debits.create(receiver: receiver, amount: amount, note: note))
-
+    debits.create!(receiver: receiver, amount: amount, note: note)
   end
 
+  # Safety can be checked preliminary by #can_transfer? method
+  def admin_remove_money(amount)
+    credits.create!(amount: amount, note: "Admin added #{amount}")
+  end
+
+  # Always safe
   def admin_add_money(amount)
-    report_result(credits.create(amount: amount, note: "Admin added #{amount}"))
-  end
-
-  private
-  def report_result(transfer)
-    transfer.persisted? ? transfer : raise ActiveRecord::RecordInvalid, transfer.errors.join(' ')
+    credits.create!(amount: amount, note: "Admin removed #{amount}")
   end
 
 end
