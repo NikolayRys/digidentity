@@ -22,12 +22,12 @@ class User < ApplicationRecord
   end
 
   # Safety can be checked preliminary by #can_transfer? method
-  def admin_remove_money(amount)
+  def console_add_money(amount)
     credits.create!(amount: amount, note: "Admin added #{amount}")
   end
 
   # Always safe
-  def admin_add_money(amount)
+  def console_remove_money(amount)
     credits.create!(amount: amount, note: "Admin removed #{amount}")
   end
 
