@@ -4,8 +4,12 @@ class Transfer < ApplicationRecord
 
   validates :amount, numericality: { greater_than_or_equal_to: 0 }
   validate :parties_presence
+  validate :amount_is_readonly
   after_create :adjust_balance
 
+  def amount_is_readonly
+    errors.add(:amount, 'Read-only field') if persisted? && changed.include?('amount')
+  end
 
   def parties_presence
     errors.add(:base, 'At least one participant needs to be present') if sender.blank? && receiver.blank?
