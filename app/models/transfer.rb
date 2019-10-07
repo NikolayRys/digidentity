@@ -7,7 +7,7 @@ class Transfer < ApplicationRecord
   after_save :adjust_balance
 
   def parties_presence
-    errors.add(:base, 'At least one participant needs to be presence') if !sender.blank? && sender.blank?
+    errors.add(:base, 'At least one participant needs to be present') if sender.blank? && receiver.blank?
   end
 
   def adjust_balance
