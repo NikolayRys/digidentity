@@ -19,4 +19,43 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(email: 'valid@email.com', password: 'secret', balance: -5)
     assert_not user.valid?
   end
+
+  test 'can get money by console API' do
+    first_user = User.create!(email: 'first@email.com', password: 'secret')
+    first_user.console_add_money(100)
+    assert_equal first_user.balance, 100
+  end
+
+  test 'can have the money removed by console API' do
+    first_user = User.create!(email: 'first@email.com', password: 'secret', balance: 100)
+    first_user.console_remove_money(50)
+    assert_equal first_user.balance, 50
+  end
+
+  test 'can perform only positive transfer' do
+    first_user = User.create!(email: 'first@email.com', password: 'secret', balance: 100)
+    second_user = User.create!(email: 'second@email.com', password: 'secret')
+    assert_raises ActiveRecord::RecordInvalid do
+       first_user.send_money_to(second_user, -10)
+    end
+  end
+
+  test 'cannot perform transfer larger than balance' do
+    first_user = User.create!(email: 'first@email.com', password: 'secret', balance: 100)
+    second_user = User.create!(email: 'second@email.com', password: 'secret')
+    assert_raises ActiveRecord::RecordInvalid do
+       first_user.send_money_to(second_user, 200)
+    end
+  end
+
+  test 'history consist from credits and debits' do
+    first_user = User.create!(email: 'first@email.com', password: 'secret', balance: 100)
+    second_user = User.create!(email: 'second@email.com', password: 'secret')
+    first_user.send_money_to(second_user, 50, 'first payment')
+    second_user.send_money_to(first_user, 20, 'second payment')
+
+    assert_equal first_user.history.map{|line| line[:amount]}, [-50, 20]
+    assert_equal second_user.history.map{|line| line[:amount]}, [50, -20]
+  end
+
 end
