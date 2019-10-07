@@ -8,8 +8,15 @@ class User < ApplicationRecord
   has_many :debits,  class_name: 'Transfer', foreign_key: :sender_id,   inverse_of: :sender
   has_many :credits, class_name: 'Transfer', foreign_key: :receiver_id, inverse_of: :receiver
 
-  def transfers
-    credits.or(debits).order(:created_at)
+  # All transfers from the perspective of the current user
+  def history
+    credit_lines = credits.map do |transfer|
+      { date: transfer.created_at, counterparty: transfer.sender&.email, amount: transfer.amount, note: transfer.note }
+    end
+    debit_lines = debits.map do |transfer|
+      { date: transfer.created_at, counterparty: transfer.receiver&.email, amount: -transfer.amount, note: transfer.note }
+    end
+    credit_lines.concat(debit_lines).sort_by { |line| line[:date]  }
   end
 
   def can_transfer?(amount)
@@ -28,7 +35,6 @@ class User < ApplicationRecord
 
   # Always safe
   def console_remove_money(amount)
-    credits.create!(amount: amount, note: "Admin removed #{amount}")
+    debits.create!(amount: amount, note: "Admin removed #{amount}")
   end
-
 end
