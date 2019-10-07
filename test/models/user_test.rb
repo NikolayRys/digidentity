@@ -15,21 +15,27 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil user.password_digest
   end
 
+  test 'can check affordability' do
+    user = User.create!(email: 'first@email.com', password: 'secret', balance: 100)
+    assert user.can_transfer?(50)
+    assert_not user.can_transfer?(200)
+  end
+
   test 'disallows negative_balance' do
     user = User.new(email: 'valid@email.com', password: 'secret', balance: -5)
     assert_not user.valid?
   end
 
   test 'can get money by console API' do
-    first_user = User.create!(email: 'first@email.com', password: 'secret')
-    first_user.console_add_money(100)
-    assert_equal first_user.balance, 100
+    user = User.create!(email: 'first@email.com', password: 'secret')
+    user.console_add_money(100)
+    assert_equal user.balance, 100
   end
 
   test 'can have the money removed by console API' do
-    first_user = User.create!(email: 'first@email.com', password: 'secret', balance: 100)
-    first_user.console_remove_money(50)
-    assert_equal first_user.balance, 50
+    user = User.create!(email: 'first@email.com', password: 'secret', balance: 100)
+    user.console_remove_money(50)
+    assert_equal user.balance, 50
   end
 
   test 'can perform only positive transfer' do
