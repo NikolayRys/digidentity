@@ -1,5 +1,41 @@
 <h2>Banking</h2>
+
+<%= form_tag("/sessions/#{@user.id}", method: :delete) do %>
+  <input type="submit" value="Log out">
+<% end %>
+
+<br>
+
 <strong>My current balance: $<%= @user.balance.to_f / 100 %></strong>
+
+<br>
+
+<%= form_tag("/transactions", method: :post) do %>
+  <fieldset style="width:20%">
+    <legend>New transfer</legend>
+    <p>
+      <label for="receiver_id">To whom</label>
+      <select id="receiver_id" name="receiver_id">
+        <% @other_users.each do |user|%>
+          <option value = "<%= user.id %>"><%= user.email %></option>
+        <% end %>
+      </select>
+    </p>
+    <p>
+      <label for="amount">Amount</label>
+      <input type="text" id="amount" name="amount" required>
+    </p>
+    <p>
+      <label for="note">Note</label>
+      <input type="text" id="note" name="note" required>
+    </p>
+    <p>
+      <input type="submit" value="Execute">
+    </p>
+   </fieldset>
+<% end %>
+
+<br>
 
 <h2>Transaction history</h2>
 <table style="width:40%" border="1">
@@ -23,8 +59,3 @@
     </tr>
   <% end %>
 </table>
-
-<br>
-<%= form_tag("/sessions/#{@user.id}", method: :delete) do %>
-  <input type="submit" value="Log out">
-<% end %>
