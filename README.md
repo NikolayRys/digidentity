@@ -14,7 +14,7 @@ The Ruby Bank
 9. It is important that money cannot just disappear or appear into account.
 
 ## My comment
-Since the task is open-ended, I needed to make a call when to stop. Here are some things that I've cut out:
+Since the task is open-ended, I needed to make a call when to stop. Here are some things that I've left out:
 * Tests for controllers
 * Proper stylesheets
 * Authentication that is not based on a session and can be hijacked
@@ -28,12 +28,13 @@ Since the task is open-ended, I needed to make a call when to stop. Here are som
 * Then please visit http://digidentity.rys.me/ and try it out
 
 ## The most important files
-[user.rb](app/models/user.rb)
-[user_test.rb](test/models/user_test.rb)
-[transfer.rb](app/models/transfer.rb)
-[transfer_test.rb](test/models/transfer_test.rb)
-[transactions_controller.rb](app/controllers/transactions_controller.rb)
-[sessions_controller.rb](app/controllers/sessions_controller.rb)
-[transactions index templatee](app/views/transactions/index.html.erb)
-[sessions new template](app/views/sessions/new.html.erb)
+* [user.rb](app/models/user.rb)
+* [user_test.rb](test/models/user_test.rb)
+* [transfer.rb](app/models/transfer.rb)
+* [transfer_test.rb](test/models/transfer_test.rb)
+* [transactions_controller.rb](app/controllers/transactions_controller.rb)
+* [sessions_controller.rb](app/controllers/sessions_controller.rb)
+* [transactions index templatee](app/views/transactions/index.html.erb)
+* [sessions new template](app/views/sessions/new.html.erb)
+
 The other edits are relatively minor.
