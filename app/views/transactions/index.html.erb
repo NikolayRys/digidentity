@@ -1,6 +1,30 @@
-<h2>TRANSACTIONS</h2>
-<h3>My balance: $<%= @user.balance.to_f / 100 %></h3>
+<h2>Banking</h2>
+<strong>My current balance: $<%= @user.balance.to_f / 100 %></strong>
 
+<h2>Transaction history</h2>
+<table style="width:40%" border="1">
+  <col width="200">
+  <col width="200">
+  <col width="200">
+  <col width="500">
+  <tr>
+    <td> <strong> Time </strong></td>
+    <td> <strong> Counterparty </strong></td>
+    <td> <strong> Amount </strong></td>
+    <td> <strong> Note </strong> </td>
+  </tr>
+
+  <% @user.history.each do |line| %>
+    <tr>
+      <td> <%= line[:date].to_formatted_s(:short) %></td>
+      <td> <%= line[:counterparty] %></td>
+      <td>$<%= line[:amount].to_f / 100  %></td>
+      <td> <%= line[:note] %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
 <%= form_tag("/sessions/#{@user.id}", method: :delete) do %>
   <input type="submit" value="Log out">
 <% end %>
