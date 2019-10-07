@@ -30,11 +30,11 @@ class User < ApplicationRecord
 
   # Safety can be checked preliminary by #can_transfer? method
   def console_add_money(amount)
-    credits.create!(amount: amount, note: "Admin added #{amount}")
+    credits.create!(amount: amount, note: "Admin added #{amount} cents")
   end
 
   # Always safe
   def console_remove_money(amount)
-    debits.create!(amount: amount, note: "Admin removed #{amount}")
+    debits.create!(amount: amount, note: "Admin removed #{amount} cents")
   end
 end
