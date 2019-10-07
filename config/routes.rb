@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   root controller: 'sessions', action: 'new'
   resources :sessions, only: [:create, :destroy]
+  resources :transactions, only: [:index, :create]
 
 end
