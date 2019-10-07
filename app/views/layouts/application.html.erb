@@ -11,11 +11,11 @@
 
   <body>
     <% if notice %>
-      <%= notice %>
+      <p style="background-color: lightgreen;"><%= notice %></p>
     <% end %>
 
     <% if alert %>
-      <%= alert %>
+      <p style="background-color: lightcoral;"><%= alert %></p>
     <% end %>
 
     <%= yield %>
