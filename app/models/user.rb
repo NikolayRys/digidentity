@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def can_transfer?(amount)
-    amount >= 0 && amount <= balance
+    amount > 0 && amount <= balance
   end
 
   # Safety can be checked preliminary by #can_transfer? method
