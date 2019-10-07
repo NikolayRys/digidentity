@@ -9,6 +9,11 @@ class UserTest < ActiveSupport::TestCase
     assert User.new(email: 'valid@email.com', password: 'secret').valid?
   end
 
+  test 'unique email' do
+    User.create!(email: 'valid@email.com', password: 'secret')
+    assert_raise(ActiveRecord::RecordInvalid){ User.create!(email: 'valid@email.com', password: 'secret') }
+  end
+
   test 'secure password' do
     user = User.new(email: 'valid@email.com', password: 'secret')
     user.save
