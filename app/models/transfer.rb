@@ -4,7 +4,8 @@ class Transfer < ApplicationRecord
 
   validates :amount, numericality: { greater_than_or_equal_to: 0 }
   validate :parties_presence
-  after_save :adjust_balance
+  after_create :adjust_balance
+
 
   def parties_presence
     errors.add(:base, 'At least one participant needs to be present') if sender.blank? && receiver.blank?
