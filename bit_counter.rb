@@ -7,7 +7,7 @@ def sum_ones_in_byte(byte)
   current_ones = 0
   while byte > 0 do
     current_ones += 1
-    byte = byte & (byte - 1) # Removes the least significant bit
+    byte &= byte - 1 # Removes the least significant bit
   end
   current_ones
 end
