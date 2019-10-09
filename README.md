@@ -1,7 +1,10 @@
 # README
 *Test task for Digidentity, done by N. Rys*
 
-## The task
+## The task #1
+* Please see [bit_counter.rb](bit_counter.rb)
+
+## The task #2
 The Ruby Bank
 1. Build a simple rails banking app.
 2. Via the console you can create users with password.
