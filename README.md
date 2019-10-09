@@ -38,6 +38,13 @@ Since the task is open-ended, I needed to make a call when to stop. Here are som
 * Balance is stored in cents, both in transactions and user accounts.
 * In preloaded data the passwords for all users match the part before @ sign, for example: `username@example.com` has password `username`
 * Then please visit http://digidentity.rys.me/ and try it out
+* Or, if you running it yourself:
+```
+bundle install
+bundle exec rake db:migratie
+bundle exec rails s
+```
+It will become accessible on the port 3000
 
 ## The most important files
 * [user.rb](app/models/user.rb)
@@ -48,5 +55,9 @@ Since the task is open-ended, I needed to make a call when to stop. Here are som
 * [sessions_controller.rb](app/controllers/sessions_controller.rb)
 * [transactions index templatee](app/views/transactions/index.html.erb)
 * [sessions new template](app/views/sessions/new.html.erb)
+* [routes.rb](config/routes.rb)
+* [users_migraion](db/migrate/20191007032114_create_users.rb)
+* [transfers_migration](db/migrate/20191007034529_create_transfers.rb)
+
 
 The other edits are relatively minor.
