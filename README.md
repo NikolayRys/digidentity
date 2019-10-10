@@ -41,7 +41,7 @@ Since the task is open-ended, I needed to make a call when to stop. Here are som
 * Or, if you running it yourself:
 ```
 bundle install
-bundle exec rake db:migratie
+bundle exec rake db:migrate
 bundle exec rails s
 ```
 It will become accessible on the port 3000
