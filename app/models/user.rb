@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def can_transfer?(amount)
-    amount > 0 && amount <= balance
+    amount.positive? && amount <= balance
   end
 
   # Safety can be checked preliminary by #can_transfer? method
@@ -28,7 +28,7 @@ class User < ApplicationRecord
     debits.create!(receiver: receiver, amount: amount, note: note)
   end
 
-  # Always safe
+  # Always safe when amount is positive
   def console_add_money(amount)
     credits.create!(amount: amount, note: "Admin added #{amount} cents")
   end
