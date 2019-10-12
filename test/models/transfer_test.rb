@@ -26,4 +26,10 @@ class TransferTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid){ transfer.update!(amount: 50) }
   end
 
+  test 'is not saved when participats cannot afford it' do
+    first_user = User.create!(email: 'first@email.com', password: 'secret')
+    second_user = User.create!(email: 'second@email.com', password: 'secret')
+    assert_raise(ActiveRecord::RecordInvalid){ Transfer.create!(sender: first_user, receiver: second_user, amount: 30) }
+  end
+
 end
