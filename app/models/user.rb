@@ -28,12 +28,12 @@ class User < ApplicationRecord
     debits.create!(receiver: receiver, amount: amount, note: note)
   end
 
-  # Safety can be checked preliminary by #can_transfer? method
+  # Always safe
   def console_add_money(amount)
     credits.create!(amount: amount, note: "Admin added #{amount} cents")
   end
 
-  # Always safe
+  # Safety can be checked preliminary by #can_transfer? method
   def console_remove_money(amount)
     debits.create!(amount: amount, note: "Admin removed #{amount} cents")
   end
