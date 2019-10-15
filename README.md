@@ -29,7 +29,6 @@ Since the task is open-ended, I needed to make a call when to stop. Here are som
 * Tests for controllers
 * Proper stylesheets
 * Authentication that is not based on a session and can be hijacked
-* Password salt
 * Make the pages look prettier
 
 ## Usage
